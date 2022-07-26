@@ -1,0 +1,63 @@
+const { getTrips, getDriver } = require("api");
+
+/**
+ * This function should return the trip data analysis
+ *
+ * Question 3
+ * @returns {any} Trip data analysis
+ */
+async function analysis() {
+  // Your code goes here
+  const trips = await getTrips();
+  const input = trips.map((trip) => {
+    trip.billedAmount = Number(trip.billedAmount.toString().replace(/,/g, ""));
+    return trip;
+  });
+  //   input;
+  let output = {};
+  let cashAmount = 0;
+  let cashTrips = 0;
+  let nonCashAmount = 0;
+  let nonCashTrips = 0;
+  let driverWithMoreThanOneVehicle = 0;
+  let allDriverID = [];
+
+  for (let i of input) {
+    allDriverID.push(i.driverID);
+    if (i.isCash === true) {
+      cashAmount += i.billedAmount;
+      cashTrips++;
+    } else {
+      nonCashAmount += i.billedAmount;
+      nonCashTrips++;
+    }
+  }
+
+  const uniqueDriversID = Array.from(new Set(allDriverID));
+  const driverInformation = {};
+
+  uniqueDriversID.forEach((i) => {
+    driverInformation[i] = getDriver(i);
+  });
+  const driverDetails = await Promise.allSettled(
+    Object.values(driverInformation)
+  );
+  //   console.log(driverDetails);
+
+  driverDetails.forEach((i) => {
+    if (i.status === "fulfilled" && i.value.vehicleID.length > 1)
+      driverWithMoreThanOneVehicle++;
+  });
+
+  const eachDriverTrip = {};
+  uniqueDriversID.forEach(
+    (driverID) => (eachDriverTrip[driverID] = input.filter((x) => x.driverID === driverID))
+  );
+
+  eachDriverTrip
+
+  return output;
+}
+
+analysis();
+module.exports = analysis;

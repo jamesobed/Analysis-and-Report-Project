@@ -1,0 +1,143 @@
+// const trips = await getTrips();
+//   console.log(trips);
+
+//   const input = trips.map((trip) => {
+//     // trip.billedAmount = Number(trip.billedAmount.toString().replace(/,/g, ""));
+//     trip.billedAmount = parseFloat(String(trip.billedAmount).replace(/,/g, ''));
+//     return trip;
+//   });
+//   console.log(input);
+//   // input;
+//   let output = {};
+//   let cashAmount = 0;
+//   let cashTrips = 0;
+//   let nonCashAmount = 0;
+//   let nonCashTrips = 0;
+//   let driverIDArray = input.map((i) => i.driverID);
+  
+
+//   for (let i of input) {
+//     if (i.isCash === true) {
+//       cashAmount += i.billedAmount;
+//       cashTrips++;
+//     } else {
+//       nonCashAmount += i.billedAmount;
+//       nonCashTrips++;
+//     }
+//   }
+//   output.cashTrips = cashTrips;
+//   output.nonCashTrips = nonCashTrips;
+//   output.billedTotal = cashAmount + nonCashAmount;
+//   output.cashAmount = cashAmount;
+//   output.nonCashAmount = parseFloat(nonCashAmount.toFixed(2));
+
+//   let driversInfomation = {};
+//   let allDriversID = [];
+//   trips.forEach((trip) => allDriversID.push(trip.driverID));
+//   let uniqueDriversID = [...new Set(allDriversID)];
+//   // console.log(uniqueDriversID);
+
+//   uniqueDriversID.forEach((driverID) => {
+//     driversInfomation[driverID] = getDriver(driverID);
+//   });
+
+//   // console.log(driversInfomation)
+
+//   let driverInfo = await Promise.allSettled(Object.values(driversInfomation));
+//   // console.log(driverInfo);
+
+//   // More than one vehicle
+//   let driverWithMoreThanOneVehicle = 0;
+//   driverInfo.forEach((driver) => {
+//     if (driver.status === "fulfilled")
+//       if (driver.value.vehicleID.length > 1) driverWithMoreThanOneVehicle++;
+//   });
+
+//   output.driverWithMoreThanOneVehicle = driverWithMoreThanOneVehicle;
+
+//   // Most trips by driver
+
+//   let eachDriverTrips = {};
+
+//   uniqueDriversID.forEach((driverID) => {
+//     eachDriverTrips[driverID] = trips.filter(
+//       (trip) => trip.driverID === driverID
+//     ).length;
+//   });
+
+//   // console.log(eachDriverTrips);
+
+//   let mostTripsByDriverID = "";
+//   let mostTripsByDriver = 0;
+
+//   for (let driver in eachDriverTrips) {
+//     // console.log(driver);
+//     if (eachDriverTrips[driver] > mostTripsByDriver) {
+//       mostTripsByDriver = eachDriverTrips[driver];
+//       mostTripsByDriverID = driver;
+//     }
+//   }
+
+//   mostTripsByDriverID;
+//   mostTripsByDriver;
+
+//   // console.log(driverInfo)
+
+//   let index = uniqueDriversID.indexOf(mostTripsByDriverID);
+//   let mostTripsByDriverInfo = driverInfo[index];
+
+//   output.mostTripsByDriver = {};
+//   output.highestEarningDriver = {};
+
+//   output.mostTripsByDriver.name = mostTripsByDriverInfo.value.name;
+//   output.mostTripsByDriver.email = mostTripsByDriverInfo.value.email;
+//   output.mostTripsByDriver.phone = mostTripsByDriverInfo.value.phone;
+//   output.mostTripsByDriver.noOfTrips = mostTripsByDriver;
+//   output.mostTripsByDriver.totalAmountEarned = parseFloat(
+//     input
+//       .filter((trip) => (trip) => trip.driverID === mostTripsByDriverID)
+//       .reduce((acc, curr) => acc + curr.billedAmount, 0)
+//       .toFixed(2)
+//   );
+
+//   let eachDriverEarning = {};
+//   uniqueDriversID.forEach((driverId) => {
+//     eachDriverEarning[driverId] = parseFloat(
+//       input
+//         .filter((trip) => trip.driverID === driverId)
+//         .reduce((a, b) => {
+//           return a + b.billedAmount;
+//         }, 0)
+//         .toFixed(2)
+//     );
+//   });
+
+//   // console.log(eachDriverEarning);
+//   let highestEarningDriverID = "";
+//   let highestEarningDriverAmount = 0;
+
+//   for (let item in eachDriverEarning) {
+//     if (eachDriverEarning[item] > highestEarningDriverAmount) {
+//       highestEarningDriverAmount = eachDriverEarning[item];
+//       highestEarningDriverID = item;
+//     }
+//   }
+//   // array.find(function(currentValue, index, arr),thisValue);
+
+//   // console.log(highestEarningDriverAmount,highestEarningDriverID)
+//   // console.log(highestEarningDriverAmount, highestEarningDriverID);
+//   // output.highestEarningDriver.name =eachDriverEarning.value.name ;
+//   // output.highestEarningDriver.email = eachDriverTrips.find(function(currentValue, index, arr),highestEarningDriverID);
+//   // output.highestEarningDriver.phone = ;
+//   // output.highestEarningDriver.noOfTrips = ;
+//   output.highestEarningDriver.totalAmountEarned = highestEarningDriverAmount;
+
+//   console.log(output);
+//   return output;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let a = '3,1,23,4,98,7,98.7,76,5,,,78'
+let  b = +(a.split(',').join(''))
+console.log(b)
+console.log(typeof b)
